@@ -78,11 +78,12 @@
 		transform: translateY(-50%);
 		z-index: 2;
 		text-align: left;
-		transition: all 0.3s ease-out;
-		-webkit-transition: all 0.3s ease-out;
+
 		.title {
 			color: var(--white-color);
 			font-size: 6rem;
+			transition: all 0.5s linear;
+			-webkit-transition: all 0.5s linear;
 		}
 
 		.overview {
@@ -93,11 +94,13 @@
 			-webkit-line-clamp: 3;
 			-webkit-box-orient: vertical;
 			overflow: hidden;
-			transition: all 0.3s ease-out;
-			-webkit-transition: all 0.3s ease-out;
+			transition: all 0.3s linear;
+			-webkit-transition: all 0.3s linear;
+			height: 7.6rem;
 			&.active {
 				height: 0;
 				opacity: 0;
+				margin: 0;
 			}
 		}
 	}
@@ -120,6 +123,7 @@
 			.overview {
 				margin-top: 1.5rem;
 				font-size: 1.6rem;
+				height: 6.8rem;
 			}
 		}
 	}
@@ -134,6 +138,7 @@
 				margin-top: 1rem;
 				font-size: 1.4rem;
 				-webkit-line-clamp: 2;
+				height: 4rem;
 			}
 		}
 
@@ -152,6 +157,7 @@
 			.overview {
 				margin-top: 0.5rem;
 				font-size: 1.2rem;
+				height: 34px;
 			}
 		}
 	}

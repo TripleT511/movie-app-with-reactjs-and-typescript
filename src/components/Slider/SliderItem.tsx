@@ -56,7 +56,7 @@ const SliderItem = ({ banner, active = false, movie }: SliderItemProps) => {
 	return (
 		<div
 			className={cx('slider-item', {
-				active: active,
+				'slider-active': active,
 			})}
 			onMouseEnter={() => handleEnter()}
 			ref={sliderItemRef}

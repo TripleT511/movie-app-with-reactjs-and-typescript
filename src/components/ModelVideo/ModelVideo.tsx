@@ -286,7 +286,7 @@ const ModelVideo = ({ active = false, turnOffModel }: ModelVideoProps) => {
 
 	return (
 		<div
-			className={cx('model-slider', {
+			className={cx('model-slider', 'model-slider-item', {
 				active,
 				fullscreen,
 			})}

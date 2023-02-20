@@ -15,6 +15,7 @@
 	box-shadow: var(--bg-black-2) 0px 3px 10px;
 	transition: opacity 0s linear, width 0.3s ease-out, height 0.3s ease-out;
 	overflow: hidden;
+
 	.box-video {
 		position: relative;
 		width: 100%;
@@ -176,7 +177,7 @@
 
 	&.active {
 		width: var(--width-model);
-		min-height: var(--height-model);
+		min-height: var(--min-height-model);
 		height: auto;
 		opacity: 1;
 		.content {
@@ -184,7 +185,7 @@
 		}
 		&:hover {
 			width: var(--width-model);
-			min-height: var(--height-model);
+			min-height: var(--min-height-model);
 			height: auto;
 			opacity: 1;
 		}
@@ -365,13 +366,6 @@
 							}
 						}
 					}
-
-					@media screen and (max-width: 768px) {
-						grid-template-columns: repeat(2, 1fr);
-						&.thugon {
-							max-height: 70rem;
-						}
-					}
 				}
 
 				.divider {
@@ -383,6 +377,7 @@
 					margin: auto;
 					position: relative;
 					width: 100%;
+					pointer-events: none;
 					button {
 						position: absolute;
 						bottom: 0;
@@ -391,6 +386,8 @@
 						max-width: 42px;
 						min-height: 32px;
 						min-width: 32px;
+						z-index: 5;
+						pointer-events: initial;
 						div {
 							width: 1.5rem;
 							height: 1.5rem;
@@ -424,27 +421,59 @@
 				}
 			}
 		}
+	}
 
-		@media screen and (max-width: 768px) {
+	@media screen and (max-width: 1200px) {
+		--width-model: 28rem;
+		--min-height-model: 28rem;
+		&.fullscreen {
 			.box {
-				width: 65vw;
+				width: 80vw;
 			}
 		}
+	}
 
-		@media screen and (max-width: 576px) {
+	@media screen and (max-width: 768px) {
+		&.fullscreen {
+			.box {
+				.content {
+					.similar_container {
+						grid-template-columns: repeat(2, 1fr);
+						&.thugon {
+							max-height: 70rem;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	@media screen and (max-width: 576px) {
+		&.fullscreen {
 			.box-video {
 				.title {
 					bottom: 12rem;
-					left: 3rem;
+					left: 4%;
 				}
 				.button_controls {
-					padding: 0 3rem;
+					padding: 0 4%;
 				}
 			}
 			.box {
-				width: calc(100% - 30px);
+				width: 96%;
 				.content {
-					padding: 0 3rem 3.2rem;
+					padding: 0 4% 3.2rem;
+					.grid_info {
+						grid-template-columns: 1fr;
+						gap: 1.5rem;
+					}
+
+					.similar_container {
+						grid-gap: 1.5rem;
+						&.thugon {
+							max-height: 60rem;
+						}
+					}
 				}
 			}
 		}

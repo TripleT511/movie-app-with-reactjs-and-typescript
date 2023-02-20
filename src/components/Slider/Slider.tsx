@@ -116,7 +116,7 @@ const Slider = ({ name = '', genres_id }: SliderProps) => {
 			},
 			offsetActive: {
 				start: 0,
-				end: showSlider,
+				end: showSlider - 1,
 			},
 			showPrev: false,
 			styles: '',
@@ -171,8 +171,8 @@ const Slider = ({ name = '', genres_id }: SliderProps) => {
 		};
 
 		let offsetActive = {
-			start: data.show - 1,
-			end: data.show * 2,
+			start: data.show,
+			end: data.show * 2 - 1,
 		};
 
 		let lstMovieActive: Movie[] = [];

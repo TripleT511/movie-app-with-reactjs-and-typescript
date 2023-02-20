@@ -149,11 +149,12 @@ a {
 }
 
 .box_slider {
-	margin-top: -17rem;
+	margin-top: -25rem;
 	position: relative;
 	z-index: 1;
-	padding: 3rem 0 6rem;
+	padding: 10rem 0 6rem;
 	overflow: hidden;
+	pointer-events: none;
 }
 
 .overlay-video {
@@ -373,6 +374,7 @@ a {
 	padding: 0 0.2vw;
 	vertical-align: top;
 	white-space: normal;
+
 	&:hover {
 		z-index: 20;
 	}
@@ -410,6 +412,19 @@ a {
 				display: inherit;
 			}
 		}
+	}
+}
+
+.slider-item.slider-active {
+	&:nth-of-type(1) .model-slider-item {
+		left: 0 !important;
+		transform: translate(0%, -50%) !important;
+	}
+
+	&:nth-of-type(6) .model-slider-item {
+		left: unset;
+		right: 0;
+		transform: translateY(-50%);
 	}
 }
 
@@ -487,6 +502,14 @@ a {
 		flex: 0 0 20%;
 	}
 
+	.slider-item.slider-active {
+		&:nth-of-type(5) .model-slider-item {
+			left: unset;
+			right: 0;
+			transform: translateY(-50%);
+		}
+	}
+
 	.gallery_movie {
 		grid-template-columns: repeat(5, 1fr);
 	}
@@ -497,6 +520,14 @@ a {
 	.loading_item {
 		width: 25%;
 		flex: 0 0 25%;
+	}
+
+	.slider-item.slider-active {
+		&:nth-of-type(4) .model-slider-item {
+			left: unset;
+			right: 0;
+			transform: translateY(-50%);
+		}
 	}
 
 	.gallery_movie {
@@ -511,6 +542,14 @@ a {
 		flex: 0 0 33.333333%;
 	}
 
+	.slider-item.slider-active {
+		&:nth-of-type(3) .model-slider-item {
+			left: unset;
+			right: 0;
+			transform: translateY(-50%);
+		}
+	}
+
 	.gallery_movie {
 		grid-template-columns: repeat(3, 1fr);
 	}
@@ -521,6 +560,14 @@ a {
 	.loading_item {
 		width: 50%;
 		flex: 0 0 50%;
+	}
+
+	.slider-item.slider-active {
+		&:nth-of-type(2) .model-slider-item {
+			left: unset;
+			right: 0;
+			transform: translateY(-50%);
+		}
 	}
 
 	.gallery_movie {
@@ -588,31 +635,22 @@ a {
 	}
 }
 
-@media screen and (max-width: 1200px) {
-	.box_slider {
-		margin-top: -14rem;
-	}
-}
-
 @media screen and (max-width: 992px) {
 	.box_slider {
-		margin-top: -12rem;
+		margin-top: -20rem;
 	}
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 576px) {
 	.box_slider {
-		margin-top: -10rem;
-	}
-}
-
-@media screen and (max-width: 600px) {
-	.box_slider {
-		margin-top: -8rem;
+		margin-top: -17rem;
 	}
 }
 
 @media screen and (max-width: 500px) {
+	.box_slider {
+		margin-top: -15rem;
+	}
 	.auth_wrapper {
 		&_header {
 			height: 4.5rem;
