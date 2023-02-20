@@ -1,0 +1,84 @@
+.search-box {
+	display: flex;
+	.search-input {
+		align-items: center;
+		background: var(--bg-black-2);
+		border: 1px solid hsla(0, 0%, 100%, 0.85);
+		display: flex;
+		.box-icon {
+			padding: 0 0.8rem;
+		}
+
+		&.d-none {
+			display: none;
+		}
+
+		label {
+			clip: rect(1px, 1px, 1px, 1px) !important;
+			height: 1px !important;
+			overflow: hidden !important;
+			position: absolute !important;
+			white-space: nowrap !important;
+			width: 1px !important;
+		}
+
+		.form-control {
+			background: transparent;
+			border: none;
+			box-sizing: border-box;
+			color: #fff;
+			display: inline-block;
+			font-size: 1.4rem;
+			outline: none;
+			padding: 7px 14px 7px 7px;
+			opacity: 0;
+			width: 0;
+			height: 3.4rem;
+			line-height: 3.4rem;
+			animation: toLeft alternate forwards 0.3s ease-out;
+
+			&:-webkit-autofill {
+				background-color: transparent;
+			}
+		}
+
+		@keyframes toLeft {
+			0% {
+				width: 0;
+				opacity: 0;
+			}
+			100% {
+				width: 21.2rem;
+				opacity: 1;
+			}
+		}
+
+		.clear {
+			cursor: pointer;
+			font-size: 1.6rem;
+			margin: 0 6px;
+			opacity: 0;
+			&.active {
+				opacity: 1;
+			}
+		}
+	}
+	.search-btn {
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		display: inline-block;
+		color: #fff;
+		padding: 0 0.8rem;
+		&.d-none {
+			display: none;
+		}
+	}
+
+	.icon {
+		width: 2rem;
+		height: 2.4rem;
+		display: flex;
+		margin: auto;
+	}
+}

@@ -1,0 +1,206 @@
+.btn {
+	position: relative;
+	border: 0px;
+	border-radius: 4px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	appearance: none;
+	opacity: 1;
+	padding: 1rem;
+	user-select: none;
+	word-break: break-word;
+	white-space: nowrap;
+
+	&:hover {
+		text-decoration: none !important;
+	}
+}
+
+.btn + .btn {
+	margin-left: 1rem;
+}
+
+.hasIconLabel {
+	padding-left: 2.6rem;
+	padding-right: 2.8rem;
+}
+
+.hasIcon {
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.hasLabel {
+	padding-left: 2.4rem;
+	padding-right: 2.4rem;
+}
+
+.primary {
+	background-color: var(--bg-btn-primary);
+	color: var(--color-btn-primary);
+	&:hover {
+		background-color: var(--bg-btn-primary-hover);
+	}
+}
+
+.secondary {
+	background-color: var(--bg-btn-secondary);
+	color: var(--color-btn-secondary);
+	&:hover {
+		background-color: var(--bg-btn-secondary-hover);
+	}
+}
+
+.btn-icon {
+	background-color: transparent;
+	border: 1px solid var(--border-btn-icon);
+	color: var(--color-btn-icon);
+}
+
+.btnModel {
+	background-color: var(--bg-btn-model);
+	color: #fff;
+	border: 2px solid var(--border-btn-model);
+	&:hover {
+		border-color: var(--border-btn-model-hover) !important;
+	}
+}
+
+.btnPlay {
+	background-color: var(--bg-btn-primary);
+	color: var(--color-btn-primary);
+	border: 1px solid var(--bg-btn-primary);
+	&:hover {
+		background-color: var(--bg-btn-play-hover);
+		border-color: var(--bg-btn-primary) !important;
+	}
+}
+
+.btnClose {
+	background-color: var(--bg-model) !important;
+	color: #fff;
+	border: 0;
+	padding: 0.8rem !important;
+}
+
+.btnAuth {
+	background-color: var(--red-color);
+	color: var(--white-color);
+	padding: 1.6rem;
+	width: 100%;
+	max-width: 100%;
+
+	.title {
+		font-size: 1.6rem;
+		font-weight: 500;
+		line-height: 1em;
+	}
+}
+
+.btnSmall {
+	max-height: 42px;
+	min-height: 32px;
+}
+
+.rounded {
+	border-radius: 50%;
+}
+
+.mr-1 {
+	margin-right: 1rem;
+}
+
+.icon {
+	display: flex;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	svg {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+.iconMedium {
+	height: 2.7rem;
+	width: 2.7rem;
+}
+
+.iconSmall {
+	height: 2rem;
+	width: 2rem;
+}
+
+.title {
+	display: block;
+	font-size: 1.8rem;
+	font-weight: 500;
+	line-height: 2.4rem;
+}
+
+@media screen and (max-width: 992px) {
+	.title {
+		font-size: 1.6rem;
+	}
+
+	.iconMedium {
+		height: 2.4rem;
+		width: 2.4rem;
+	}
+
+	.iconSmall {
+		height: 1.8rem;
+		width: 1.8rem;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.title {
+		font-size: 1.4rem;
+		line-height: 1.2;
+	}
+	.btn {
+		padding: 0.8rem;
+	}
+
+	.iconMedium {
+		height: 2rem;
+		width: 2rem;
+	}
+
+	.iconSmall {
+		height: 1.4rem;
+		width: 1.4rem;
+	}
+	.hasIconLabel {
+		padding-left: 2rem;
+		padding-right: 2.4rem;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.title {
+		font-size: 1.2rem;
+	}
+
+	.iconMedium {
+		height: 1.6rem;
+		width: 1.6rem;
+	}
+
+	.iconSmall {
+		height: 1rem;
+		width: 1rem;
+	}
+	.hasIconLabel {
+		padding-left: 1.6rem;
+		padding-right: 2rem;
+	}
+
+	.mr-1 {
+		margin-right: 0.5rem;
+	}
+}

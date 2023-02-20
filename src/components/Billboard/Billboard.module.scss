@@ -1,0 +1,158 @@
+.billboard_wrapper {
+	position: relative;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	background-color: var(--bg-primary);
+	z-index: 1;
+
+	.wrapper-button {
+		display: flex;
+		margin-top: 1.5vw;
+		white-space: nowrap;
+		margin-bottom: 1rem;
+		button {
+			flex-shrink: 0;
+		}
+	}
+
+	.options-video {
+		position: absolute;
+		align-items: center;
+		bottom: 25%;
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-end;
+		right: 8%;
+		z-index: 1;
+	}
+	.img {
+		position: relative;
+		display: block;
+		width: 100%;
+		padding-top: 56.25%;
+		height: inherit;
+		overflow: hidden;
+
+		&::after {
+			position: absolute;
+			content: '';
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+			background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 15%, transparent);
+			pointer-events: none;
+		}
+		picture {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			overflow: hidden;
+			img {
+				height: 100%;
+				width: 100%;
+				object-fit: cover;
+				position: relative;
+				left: 50%;
+				top: 50%;
+				transform: translateY(-50%) translateX(-50%);
+				display: inherit;
+				transition: all 0.5s ease-in-out;
+			}
+		}
+	}
+
+	.info {
+		position: absolute;
+		width: 50%;
+		padding: 0 4%;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 2;
+		text-align: left;
+		transition: all 0.3s ease-out;
+		-webkit-transition: all 0.3s ease-out;
+		.title {
+			color: var(--white-color);
+			font-size: 6rem;
+		}
+
+		.overview {
+			margin-top: 2rem;
+			font-size: 1.8rem;
+			color: var(--white-color);
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			transition: all 0.3s ease-out;
+			-webkit-transition: all 0.3s ease-out;
+			&.active {
+				height: 0;
+				opacity: 0;
+			}
+		}
+	}
+
+	@media screen and (max-width: 1300px) {
+		.info {
+			.title {
+				font-size: 4.5rem;
+			}
+		}
+	}
+
+	@media screen and (max-width: 992px) {
+		.info {
+			padding: 0 0 0 4%;
+			.title {
+				font-size: 3.2rem;
+			}
+
+			.overview {
+				margin-top: 1.5rem;
+				font-size: 1.6rem;
+			}
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		.info {
+			.title {
+				font-size: 2.5rem;
+			}
+
+			.overview {
+				margin-top: 1rem;
+				font-size: 1.4rem;
+				-webkit-line-clamp: 2;
+			}
+		}
+
+		.options-video {
+			bottom: 28%;
+		}
+	}
+
+	@media screen and (max-width: 600px) {
+		.info {
+			.title {
+				font-size: 2rem;
+				line-height: 1.2;
+			}
+
+			.overview {
+				margin-top: 0.5rem;
+				font-size: 1.2rem;
+			}
+		}
+	}
+}

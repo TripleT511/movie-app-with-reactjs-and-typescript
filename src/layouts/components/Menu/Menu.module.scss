@@ -1,0 +1,146 @@
+.navigation {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 1.8rem;
+	list-style: none;
+	margin-left: 1.8rem;
+
+	.nav-link {
+		display: none;
+		font-size: var(--nav-item-font-size);
+		color: var(--nav-item-color);
+		font-weight: 400;
+		transition: all 0.4s;
+		-webkit-transition: all 0.4s;
+		padding: 1rem 0;
+		&:hover {
+			color: var(--nav-item-hover-color);
+		}
+		&.active {
+			color: var(--nav-item-active-color);
+			cursor: default;
+			font-weight: 500;
+		}
+	}
+
+	.nav-menu-tab {
+		position: relative;
+		.nav-link {
+			display: block;
+			cursor: pointer;
+		}
+
+		.sub-menu {
+			background-color: rgba(0, 0, 0, 0.9);
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			color: #fff;
+			cursor: default;
+			font-size: 1.3rem;
+			line-height: 2.1rem;
+			opacity: 0;
+			position: absolute;
+			top: 7.1rem;
+			width: 26rem;
+			text-align: center;
+			transition: all 0.3s ease-in-out;
+			border-top: 2px solid #e5e5e5;
+			left: 50%;
+			transform: translateX(-50%);
+			visibility: hidden;
+			li {
+				list-style: none;
+				a {
+					height: 5rem;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+
+					&:hover {
+						background-color: rgba(255, 255, 255, 0.05);
+					}
+				}
+			}
+			&::after {
+				position: absolute;
+				content: '';
+				top: -30px;
+				height: 30px;
+				width: 100%;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+			.arrow {
+				position: absolute;
+				top: -1.6rem;
+				left: 50%;
+				width: 0;
+				height: 0;
+				margin-left: -7px;
+				border: 7px solid transparent;
+				border-bottom-color: #e5e5e5;
+			}
+		}
+
+		&:hover {
+			.sub-menu {
+				opacity: 1;
+				visibility: visible;
+			}
+		}
+
+		&::after {
+			position: absolute;
+			right: -2rem;
+			top: 50%;
+			transform: translateY(-50%);
+			border-color: #fff transparent transparent;
+			border-style: solid;
+			border-width: 5px 5px 0;
+			content: '';
+			height: 0;
+			margin-left: 5px;
+			width: 0;
+		}
+
+		&::before {
+			position: absolute;
+			content: '';
+			right: -50%;
+			top: 50%;
+			transform: translateY(-50%);
+			height: 100%;
+			width: 50%;
+		}
+	}
+
+	@media screen and (min-width: 992px) {
+		.nav-menu-tab {
+			.nav-link {
+				display: none;
+			}
+
+			&::after {
+				display: none;
+			}
+		}
+
+		.nav-link {
+			display: block;
+		}
+	}
+
+	@media screen and (max-width: 992px) {
+		.nav-menu-tab {
+			.sub-menu {
+				top: 6.4rem;
+			}
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		.nav-link {
+			font-size: 1.3rem;
+		}
+	}
+}
