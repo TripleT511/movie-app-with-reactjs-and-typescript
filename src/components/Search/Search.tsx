@@ -3,7 +3,12 @@ import styles from './Search.module.scss';
 import { memo, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSearchData, resetPageSearch } from '../../redux/actions';
+import {
+	getMoreSearchData,
+	getOldSearchData,
+	getSearchData,
+	resetPageSearch,
+} from '../../redux/actions';
 import { useDebounce } from '../../hooks';
 import config from '../../config';
 import request from '../../utils/httpRequest';
@@ -17,9 +22,15 @@ const Search = () => {
 	const [displaySearchInput, setDisplaySearchInput] = useState<boolean>(false);
 	const [searchValue, setSearchValue] = useState<string>('');
 	const page = useSelector((state: RootState) => state.searchMovie.page);
+	const currentKeyword = useSelector(
+		(state: RootState) => state.searchMovie.keyword,
+	);
+
 	const totalPages = useSelector(
 		(state: RootState) => state.searchMovie.totalPages,
 	);
+
+	const oldData = useSelector((state: RootState) => state.searchMovie.oldData);
 
 	const searchInputRef = useRef<any>(null);
 	const navigate = useNavigate();
@@ -48,32 +59,45 @@ const Search = () => {
 			return;
 		}
 
+		const existKeyword = oldData?.findIndex(
+			(item) => item.keyword === debounce,
+		);
+
 		const searchMovie = async () => {
 			const res = await request(`3/search/movie`, {
 				params: {
 					api_key: config.api_key,
 					query: encodeURIComponent(debounce),
-					page: page,
+					page: currentKeyword !== searchValue ? 1 : page,
 				},
 			});
 
 			return res;
 		};
 
-		searchMovie()
-			.then((res) => {
-				const data = res.data;
-				console.log('do day nua');
-				dispatch(
-					getSearchData({
-						keyword: debounce,
-						results: data.results,
-						page: page,
-						totalPages: data.total_pages,
-					}),
-				);
-			})
-			.catch(console.error);
+		if (
+			(existKeyword !== -1 && page === 1) ||
+			(existKeyword !== -1 && currentKeyword !== searchValue)
+		) {
+			dispatch(getOldSearchData(oldData![existKeyword!]));
+			dispatch(getMoreSearchData(oldData![existKeyword!].page + 1));
+			return;
+		} else {
+			searchMovie()
+				.then((res) => {
+					const data = res.data;
+					dispatch(
+						getSearchData({
+							keyword: debounce,
+							results: data.results,
+							page: data.page,
+							totalPages: data.total_pages,
+						}),
+					);
+				})
+				.catch(console.error);
+		}
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debounce, page]);
 
@@ -91,6 +115,11 @@ const Search = () => {
 		searchInputRef.current.focus();
 		setDisplaySearchInput(true);
 		setSearchValue('');
+		dispatch(resetPageSearch());
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
 	};
 
 	const handleBlurInput = () => {
@@ -98,6 +127,10 @@ const Search = () => {
 	};
 
 	const handleChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
 		setSearchValue(e.target.value);
 	};
 

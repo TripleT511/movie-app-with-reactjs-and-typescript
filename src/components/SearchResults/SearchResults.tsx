@@ -12,6 +12,21 @@ import styles from './SearchResults.module.scss';
 
 const cx = classNames.bind(styles);
 const SearchResults = () => {
+	const [showSlider, setShowSlider] = useState<number>(() => {
+		let showSlider = 6;
+		const windowWidth = window.innerWidth;
+		if (windowWidth >= 1100 && windowWidth <= 1399) {
+			showSlider = 5;
+		} else if (windowWidth >= 800 && windowWidth <= 1099) {
+			showSlider = 4;
+		} else if (windowWidth >= 500 && windowWidth <= 799) {
+			showSlider = 3;
+		} else if (windowWidth <= 499) {
+			showSlider = 2;
+		}
+
+		return showSlider;
+	});
 	const { keyword, results, page } = useSelector(
 		(state: RootState) => state.searchMovie,
 	);
@@ -69,52 +84,61 @@ const SearchResults = () => {
 					</>
 				)}
 			</div>
-			{results ? (
-				<>
-					<div className={cx('gallery_movie')}>
-						{results.map((movie: MovieDetails, index: number) => {
-							let banner = config.path_image + movie.backdrop_path;
-							if (movie.backdrop_path === null) {
-								banner = images.no_image;
-							}
+			<div className={cx('lst_gallery_movie')}>
+				{results ? (
+					<>
+						<div className={cx('gallery_movie')}>
+							{results.map((movie: MovieDetails, index: number) => {
+								let banner = config.path_image + movie.backdrop_path;
+								if (movie.backdrop_path === null) {
+									banner = images.no_image;
+								}
 
-							return (
-								<SliderItem key={movie.id} banner={banner} movie={movie} />
-							);
-						})}
+								return (
+									<SliderItem
+										active={
+											(index + 1) % showSlider === 0 || index % showSlider === 0
+										}
+										key={movie.id}
+										banner={banner}
+										movie={movie}
+									/>
+								);
+							})}
+						</div>
+						<div
+							className={cx('loading', {
+								active: loading,
+							})}
+							ref={loadingRef}
+						>
+							<div className={cx('loader')}></div>
+						</div>
+					</>
+				) : (
+					<div className={cx('noResultsWrapper')}>
+						<div className={cx('noResults')}>
+							<p>
+								Không có kết quả nào khớp với yêu cầu tìm kiếm "{keyword}" của
+								bạn.
+							</p>
+							<p>Đề xuất:</p>
+							<ul>
+								<li>Thử nhập từ khóa khác</li>
+								<li>Bạn đang tìm phim hoặc chương trình truyền hình?</li>
+								<li>
+									Thử sử dụng tên phim, chương trình truyền hình, tên diễn viên
+									hoặc đạo diễn
+								</li>
+								<li>
+									Thử một thể loại, như hài, lãng mạn, thể thao hoặc phim chính
+									kịch
+								</li>
+							</ul>
+						</div>
 					</div>
-					<div
-						className={cx('loading', {
-							active: loading,
-						})}
-						ref={loadingRef}
-					>
-						<div className={cx('loader')}></div>
-					</div>
-				</>
-			) : (
-				<div className={cx('noResultsWrapper')}>
-					<div className={cx('noResults')}>
-						<p>
-							Không có kết quả nào khớp với yêu cầu tìm kiếm "{keyword}" của
-							bạn.
-						</p>
-						<p>Đề xuất:</p>
-						<ul>
-							<li>Thử nhập từ khóa khác</li>
-							<li>Bạn đang tìm phim hoặc chương trình truyền hình?</li>
-							<li>
-								Thử sử dụng tên phim, chương trình truyền hình, tên diễn viên
-								hoặc đạo diễn
-							</li>
-							<li>
-								Thử một thể loại, như hài, lãng mạn, thể thao hoặc phim chính
-								kịch
-							</li>
-						</ul>
-					</div>
-				</div>
-			)}
+				)}
+			</div>
 		</div>
 	);
 };

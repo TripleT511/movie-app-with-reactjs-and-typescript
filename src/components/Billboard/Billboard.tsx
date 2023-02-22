@@ -72,17 +72,11 @@ const Billboard = () => {
 					}));
 				}
 			}
-			// else {
-			// 	if (isPauseVideoRef.current === 1) {
-			// 		isPauseVideoRef.current = 0;
-			// 		youtubeRef.current.play();
-			// 	}
-			// }
 		};
 
 		getMovieRated()
 			.then(async (res) => {
-				const trendingMovie = res.data.results[0];
+				const trendingMovie = res.data.results[1];
 				const srcImage =
 					trendingMovie.backdrop_path != null
 						? config.path_image + trendingMovie.backdrop_path

@@ -428,6 +428,21 @@ a {
 	}
 }
 
+.gallery_movie {
+	.slider-item.slider-active {
+		&:nth-of-type(odd) .model-slider-item {
+			left: 0 !important;
+			transform: translate(0%, -50%) !important;
+		}
+
+		&:nth-of-type(even) .model-slider-item {
+			left: unset;
+			right: 0;
+			transform: translateY(-50%);
+		}
+	}
+}
+
 .loading_item {
 	border-left: 2px solid var(--bg-primary);
 	border-right: 2px solid var(--bg-primary);

@@ -39,7 +39,8 @@ const SliderItem = ({ banner, active = false, movie }: SliderItemProps) => {
 				...model,
 				display: 2,
 			});
-		}, 350);
+		}, 1000);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleLeave = useCallback(() => {
@@ -51,6 +52,7 @@ const SliderItem = ({ banner, active = false, movie }: SliderItemProps) => {
 			...model,
 			display: 0,
 		});
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

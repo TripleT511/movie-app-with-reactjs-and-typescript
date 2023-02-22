@@ -62,11 +62,57 @@ const rootReducer = (state = initialState, action: Action<string, any>) => {
 				videoFavourite: [...state.videoFavourite, action.payload],
 			};
 		case 'GET_SEARCH_DATA':
+			let oldData = state.searchMovie.oldData;
+			const existKeyword = oldData?.findIndex(
+				(item) => item.keyword === action.payload.keyword,
+			);
+
+			if (existKeyword !== -1) {
+				if (oldData) {
+					oldData[existKeyword!].page = action.payload.page;
+					oldData[existKeyword!].results = [
+						...oldData[existKeyword!].results,
+						...action.payload.results,
+					];
+				}
+				return {
+					...state,
+					searchMovie: {
+						keyword: action.payload.keyword,
+						results: [...state.searchMovie.results, ...action.payload.results],
+						page: action.payload.page,
+						totalPages: action.payload.totalPages,
+						oldData: oldData,
+					},
+				};
+			} else {
+				return {
+					...state,
+					searchMovie: {
+						keyword: action.payload.keyword,
+						results: [...action.payload.results],
+						page: action.payload.page,
+						totalPages: action.payload.totalPages,
+						oldData: [
+							...state.searchMovie?.oldData!,
+							{
+								keyword: action.payload.keyword,
+								results: [...action.payload.results],
+								page: action.payload.page,
+								totalPages: action.payload.totalPages,
+							},
+						],
+					},
+				};
+			}
+
+		case 'GET_OLD_DATA':
 			return {
 				...state,
 				searchMovie: {
+					...state.searchMovie,
 					keyword: action.payload.keyword,
-					results: [...state.searchMovie.results, ...action.payload.results],
+					results: action.payload.results,
 					page: action.payload.page,
 					totalPages: action.payload.totalPages,
 				},

@@ -75,3 +75,10 @@ export const getMoreSearchData = (payload: number) => {
 		payload,
 	};
 };
+
+export const getOldSearchData = (payload: searchMovie) => {
+	return {
+		type: 'GET_OLD_DATA',
+		payload,
+	};
+};
