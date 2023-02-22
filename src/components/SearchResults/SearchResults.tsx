@@ -27,7 +27,7 @@ const SearchResults = () => {
 
 		return showSlider;
 	});
-	const { keyword, results, page } = useSelector(
+	const { keyword, results, page, totalPages } = useSelector(
 		(state: RootState) => state.searchMovie,
 	);
 
@@ -37,7 +37,7 @@ const SearchResults = () => {
 
 	const debounce = useDebounce({
 		value: loading,
-		delay: 100,
+		delay: 500,
 	});
 
 	useEffect(() => {

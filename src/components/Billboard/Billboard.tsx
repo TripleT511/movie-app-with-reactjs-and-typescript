@@ -76,7 +76,7 @@ const Billboard = () => {
 
 		getMovieRated()
 			.then(async (res) => {
-				const trendingMovie = res.data.results[1];
+				const trendingMovie = res.data.results[0];
 				const srcImage =
 					trendingMovie.backdrop_path != null
 						? config.path_image + trendingMovie.backdrop_path
@@ -120,6 +120,7 @@ const Billboard = () => {
 			if (delayVideo) clearTimeout(delayVideo);
 			window.removeEventListener('scroll', handleScrollWindow);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const videoVolumeClicked = () => {

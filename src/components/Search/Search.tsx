@@ -39,7 +39,7 @@ const Search = () => {
 
 	const debounce = useDebounce({
 		value: searchValue,
-		delay: 400,
+		delay: 750,
 	});
 
 	useEffect(() => {
