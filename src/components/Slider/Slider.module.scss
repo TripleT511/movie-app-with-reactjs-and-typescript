@@ -115,6 +115,8 @@
 			z-index: 5;
 			opacity: 0;
 			transition: all 0.3s linear;
+			cursor: pointer;
+
 			svg {
 				width: 1.5vw;
 				display: block;
@@ -124,7 +126,6 @@
 				transition: transform 0.1s ease-out 0s;
 			}
 			&:hover {
-				cursor: pointer;
 				background-color: rgba(20, 20, 20, 0.7);
 				svg {
 					transform: scale(1.15);

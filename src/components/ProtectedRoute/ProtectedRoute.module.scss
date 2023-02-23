@@ -23,6 +23,8 @@
 
 		&_item {
 			font-size: 1.2vw;
+			cursor: pointer;
+
 			.img {
 				border: none;
 				border-radius: 4px;
@@ -73,7 +75,6 @@
 			}
 
 			&:hover {
-				cursor: pointer;
 				.img {
 					&::after {
 						border-color: #e5e5e5;

@@ -27,7 +27,7 @@ const SearchResults = () => {
 
 		return showSlider;
 	});
-	const { keyword, results, page, totalPages } = useSelector(
+	const { keyword, results, page } = useSelector(
 		(state: RootState) => state.searchMovie,
 	);
 

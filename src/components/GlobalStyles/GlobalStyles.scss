@@ -359,6 +359,9 @@ a {
 
 		.btn_submit {
 			margin: 2.4rem 0 1.2rem;
+			button {
+				padding: 1.6rem !important;
+			}
 		}
 
 		.btn_submit + .btn_submit {
@@ -374,10 +377,10 @@ a {
 	padding: 0 0.2vw;
 	vertical-align: top;
 	white-space: normal;
+	cursor: pointer;
 
 	&:hover {
 		z-index: 20;
-		cursor: pointer;
 	}
 	&:first-child {
 		padding-left: 0;
