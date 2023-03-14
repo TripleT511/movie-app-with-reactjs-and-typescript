@@ -2,7 +2,7 @@ import className from 'classnames/bind';
 import styles from './Slider.module.scss';
 import { useEffect, useState, memo } from 'react';
 import { Movie, SliderProps, stateSlider } from '../../interface';
-import request from '../../utils/httpRequest';
+import http from '../../utils/httpRequest';
 import config from '../../config';
 import SliderItem from './SliderItem';
 import { Link } from 'react-router-dom';
@@ -125,12 +125,14 @@ const Slider = ({ name = '', genres_id }: SliderProps) => {
 	});
 
 	useEffect(() => {
+		let controller = new AbortController();
 		const getListMovie = async () => {
-			const res = await request(`3/discover/movie`, {
+			const res = await http.get(`3/discover/movie`, {
 				params: {
 					api_key: config.api_key,
 					with_genres: genres_id,
 				},
+				signal: controller.signal,
 			});
 
 			return res.data.results;
@@ -151,6 +153,10 @@ const Slider = ({ name = '', genres_id }: SliderProps) => {
 				});
 			})
 			.catch(console.error);
+
+		return () => {
+			controller.abort();
+		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

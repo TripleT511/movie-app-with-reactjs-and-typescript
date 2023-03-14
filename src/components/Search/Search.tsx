@@ -11,7 +11,7 @@ import {
 } from '../../redux/actions';
 import { useDebounce } from '../../hooks';
 import config from '../../config';
-import request from '../../utils/httpRequest';
+import http from '../../utils/httpRequest';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { RootState } from '../../redux/store';
@@ -63,13 +63,16 @@ const Search = () => {
 			(item) => item.keyword === debounce,
 		);
 
+		let controller = new AbortController();
+
 		const searchMovie = async () => {
-			const res = await request(`3/search/movie`, {
+			const res = await http.get(`3/search/movie`, {
 				params: {
 					api_key: config.api_key,
 					query: encodeURIComponent(debounce),
 					page: currentKeyword !== searchValue ? 1 : page,
 				},
+				signal: controller.signal,
 			});
 
 			return res;
@@ -97,6 +100,10 @@ const Search = () => {
 				})
 				.catch(console.error);
 		}
+
+		return () => {
+			controller.abort();
+		};
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debounce, page]);

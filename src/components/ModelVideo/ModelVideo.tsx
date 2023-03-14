@@ -11,7 +11,6 @@ import {
 	VideoModel,
 	VideoState,
 } from '../../interface';
-import request from '../../utils/httpRequest';
 import config from '../../config';
 import Video from '../Video';
 import images from '../../assets/images';
@@ -35,6 +34,7 @@ import {
 	setDisplayModelFullScreen,
 } from '../../redux/actions';
 import { Link } from 'react-router-dom';
+import http from '../../utils/httpRequest';
 
 const cx = classNames.bind(styles);
 interface ModelVideoProps {
@@ -71,14 +71,16 @@ const ModelVideo = ({ active = false, turnOffModel }: ModelVideoProps) => {
 
 	useEffect(() => {
 		let delayVideo: NodeJS.Timeout;
+		let controller = new AbortController();
 		if (idMovie) {
 			const getMovieDetails = async () => {
-				const res = await request(
+				const res = await http.get(
 					`https://api.themoviedb.org/3/movie/${idMovie}`,
 					{
 						params: {
 							api_key: config.api_key,
 						},
+						signal: controller.signal,
 					},
 				);
 
@@ -87,7 +89,7 @@ const ModelVideo = ({ active = false, turnOffModel }: ModelVideoProps) => {
 			getMovieDetails()
 				.then(async (res) => {
 					setMovie(res.data);
-					const lstVideoRelated = await request(
+					const lstVideoRelated = await http.get(
 						`https://api.themoviedb.org/3/movie/${idMovie}/videos`,
 						{
 							params: {
@@ -98,7 +100,7 @@ const ModelVideo = ({ active = false, turnOffModel }: ModelVideoProps) => {
 						},
 					);
 
-					const lstCast = await request(
+					const lstCast = await http.get(
 						`https://api.themoviedb.org/3/movie/${idMovie}/credits`,
 						{
 							params: {
@@ -136,7 +138,7 @@ const ModelVideo = ({ active = false, turnOffModel }: ModelVideoProps) => {
 						];
 					}, []);
 
-					const lstMovieSimilar = await request(
+					const lstMovieSimilar = await http.get(
 						`https://api.themoviedb.org/3/movie/${idMovie}/similar`,
 						{
 							params: {
@@ -162,6 +164,7 @@ const ModelVideo = ({ active = false, turnOffModel }: ModelVideoProps) => {
 
 		return () => {
 			if (delayVideo) clearTimeout(delayVideo);
+			controller.abort();
 		};
 	}, [idMovie]);
 

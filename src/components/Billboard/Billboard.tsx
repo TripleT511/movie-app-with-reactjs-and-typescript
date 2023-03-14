@@ -2,7 +2,7 @@ import Button from '../Button';
 import config from '../../config';
 import images from '../../assets/images';
 import styles from './Billboard.module.scss';
-import request from '../../utils/httpRequest';
+import http from '../../utils/httpRequest';
 import { BillBoardState, VideoModel, VideoState } from '../../interface';
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState, memo } from 'react';
@@ -48,12 +48,13 @@ const Billboard = () => {
 		let delayVideo: NodeJS.Timeout;
 		let offset = billboardRef.current.offsetWidth * (9 / 16);
 		isPauseVideoRef.current = 0;
-
+		const controller = new AbortController();
 		const getMovieRated = async () => {
-			const res = await request('3/trending/all/day', {
+			const res = await http.get('3/trending/all/day', {
 				params: {
 					api_key: config.api_key,
 				},
+				signal: controller.signal,
 			});
 
 			return res;
@@ -90,7 +91,7 @@ const Billboard = () => {
 					overview: trendingMovie.overview,
 				});
 
-				const response = await request(
+				const response = await http.get(
 					`https://api.themoviedb.org/3/movie/${trendingMovie.id}/videos`,
 					{
 						params: {
@@ -119,6 +120,7 @@ const Billboard = () => {
 		return () => {
 			if (delayVideo) clearTimeout(delayVideo);
 			window.removeEventListener('scroll', handleScrollWindow);
+			controller.abort();
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

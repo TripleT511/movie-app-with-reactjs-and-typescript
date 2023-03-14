@@ -2,11 +2,11 @@ import classNames from 'classnames/bind';
 import { MovieDetails } from '../../interface';
 import styles from './GenreMovie.module.scss';
 import { useState, useEffect, useRef } from 'react';
-import request from '../../utils/httpRequest';
 import config from '../../config';
 import { useParams } from 'react-router-dom';
 import SliderItem from '../Slider/SliderItem';
 import images from '../../assets/images';
+import http from '../../utils/httpRequest';
 
 const cx = classNames.bind(styles);
 
@@ -30,13 +30,15 @@ const GenreMovie = () => {
 		if (dataMovie.totalPages !== 0 && dataMovie.page > dataMovie.totalPages) {
 			return;
 		}
+		let controller = new AbortController();
 		const getListMovie = async () => {
-			const res = await request(`3/discover/movie`, {
+			const res = await http.get(`3/discover/movie`, {
 				params: {
 					api_key: config.api_key,
 					with_genres: params.genreId,
 					page: dataMovie.page,
 				},
+				signal: controller.signal,
 			});
 
 			return res;
@@ -52,6 +54,10 @@ const GenreMovie = () => {
 				}));
 			})
 			.catch(console.error);
+
+		return () => {
+			controller.abort();
+		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dataMovie.page]);
 

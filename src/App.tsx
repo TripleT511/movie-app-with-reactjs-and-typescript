@@ -9,14 +9,14 @@ import routes from './config/routes';
 import { ChildrenProps } from './interface';
 import Layout from './layouts/Layout';
 import publicRoutes from './routes/routes';
-import request from './utils/httpRequest';
+import http from './utils/httpRequest';
 
 function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const getGenres = async () => {
-			const res = await request('3/genre/movie/list', {
+			const res = await http.get('3/genre/movie/list', {
 				params: {
 					api_key: config.api_key,
 				},

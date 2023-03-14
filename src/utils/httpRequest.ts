@@ -1,17 +1,21 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
-const request = axios.create({
-	baseURL: 'https://api.themoviedb.org/',
-});
+class Http {
+	instance: AxiosInstance;
+	constructor() {
+		this.instance = axios.create({
+			baseURL: 'https://api.themoviedb.org/',
+			timeout: 10000,
+		});
+	}
+}
 
-// const requestImage = axios.create({
-// 	baseURL: 'https://image.tmdb.org/t/p/',
-// });
+const http = new Http().instance;
 
 export const get = async (path: string, options: AxiosRequestConfig = {}) => {
-	const response = await request.get(path, options);
+	const response = await http.get(path, options);
 
 	return response.data;
 };
 
-export default request;
+export default http;
